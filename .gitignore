@@ -3,5 +3,8 @@ elm-stuff/
 # elm-repl generated files
 repl-temp-*
 bower_components/
+node_modules/
 output/
 .pulp*
+npm-debug.log
+.psc*
