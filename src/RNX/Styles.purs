@@ -1,8 +1,11 @@
 module RNX.Styles where
 
-import RNX.Color (Color)
 import Prelude
+import RNX.Props as P
+import RNX.Color (Color)
+import RNX.Props (RSMode)
 import React.DOM.Props (Props)
+import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data StyleSheet :: *
 foreign import data StyleProp :: *
@@ -450,3 +453,12 @@ zIndex = unsafeMkStyleProp "zIndex"
 
 -- TODO: Transform StyleProp
 -- TODO: resizeMode
+
+unsafePropAsStyleProp :: Props -> StyleProp
+unsafePropAsStyleProp = unsafeCoerce
+
+resizeMode :: RSMode -> StyleProp
+resizeMode = unsafePropAsStyleProp <<< P.resizeMode
+
+tintColor :: Color -> StyleProp
+tintColor c = unsafeMkStyleProp "tintColor" (show c)
