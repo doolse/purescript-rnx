@@ -11,6 +11,7 @@ import RNX.Props (ImageSource)
 import RNX.Safer.Styles (Styles)
 import RNX.Safer.Undefinable (mapUndefined)
 import React (ReactElement, createElement)
+import ReactNative.PropTypes (EventHandled)
 import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data ListViewDataSource :: * -> *
@@ -22,16 +23,16 @@ type Props a = a -> a
 type Props_ a = a Unit -> a Unit
 
 class HandledEvent a where
-  handle :: a -> Unit
+  handle :: a -> EventHandled
 
-handleUndefined :: forall ev a. (HandledEvent ev) => (a -> ev) -> a -> Unit
+handleUndefined :: forall ev a. (HandledEvent ev) => (a -> ev) -> a -> EventHandled
 handleUndefined = mapUndefined (compose handle)
 
 instance unitHandler :: HandledEvent Unit where
-  handle = id
+  handle = unsafeCoerce
 
 instance affHandler :: HandledEvent (Aff eff Unit) where
-  handle = unsafePerformEff <<< void <<< launchAff
+  handle = unsafeCoerce <<< unsafePerformEff <<< void <<< launchAff
 
 type ReactBase r = { key :: String | r }
 
