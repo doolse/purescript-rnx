@@ -11,7 +11,7 @@ import RNX.Props (ImageSource)
 import RNX.Safer.Styles (Styles)
 import RNX.Safer.Undefinable (mapUndefined)
 import React (ReactElement, createElement)
-import ReactNative.PropTypes (EventHandled)
+import React.SimpleAction (EventHandled)
 import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data ListViewDataSource :: * -> *
